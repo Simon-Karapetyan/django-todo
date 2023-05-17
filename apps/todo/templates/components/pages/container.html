@@ -1,0 +1,76 @@
+<div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col col-lg-9 col-xl-7">
+            <div class="card rounded-3">
+                <div class="card-body p-4">
+
+                    {% include '../common/title.html' with title='To Do App' %}
+
+                    <form
+                        class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2"
+                        method="POST"
+                        action="{% url 'todo-store' %}"
+                        >
+                        {% csrf_token %}
+                        <div class="col-12">
+                            <div class="form-outline">
+                                <input name="name" class="form-control" type="text" id="form1" placeholder="Task name"/>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
+
+                    <table class="table mb-4">
+                        <thead>
+                        <tr>
+                            <th class="todo-id">No.</th>
+                            <th class="todo-name">Todo item</th>
+                            <th class="todo-status">Status</th>
+                            <th class="todo-actions">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for todo in todos %}
+                                <tr>
+                                    <th scope="row">{{ todo.id }}</th>
+                                    <td>{{ todo.name }}</td>
+                                    <td>
+                                        {% if todo.status %}
+                                            Finished
+                                        {% else %}
+                                            In Progress
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                        <button type="submit" class="btn btn-primary ms-1">Edit</button>
+                                        <button type="submit" class="btn btn-success ms-1">Finished</button>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .todo-id {
+        width: 10%;
+    }
+    .todo-name {
+        width: 30%;
+    }
+    .todo-status {
+        width: 20%;
+    }
+    .todo-actions {
+        width: 35%;
+    }
+</style>

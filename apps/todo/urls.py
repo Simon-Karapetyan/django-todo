@@ -19,4 +19,5 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='todo-index'),
+    path('store', views.store, name='todo-store'),
 ]
