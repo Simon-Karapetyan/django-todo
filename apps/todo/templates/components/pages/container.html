@@ -9,12 +9,12 @@
                     <form
                         class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2"
                         method="POST"
-                        action="{% url 'todo-store' %}"
+                        action="{% if todo %} {% url 'todo-update' id=todo.id %} {% else %} {% url 'todo-store' %} {% endif %}"
                         >
                         {% csrf_token %}
                         <div class="col-12">
                             <div class="form-outline">
-                                <input name="name" class="form-control" type="text" id="form1" placeholder="Task name"/>
+                                <input name="name" value="{{ todo.name }}" class="form-control" type="text" placeholder="Task name"/>
                             </div>
                         </div>
 
@@ -45,9 +45,9 @@
                                         {% endif %}
                                     </td>
                                     <td>
-                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                        <button type="submit" class="btn btn-primary ms-1">Edit</button>
-                                        <button type="submit" class="btn btn-success ms-1">Finished</button>
+                                        <a href="{% url 'todo-delete' id=todo.id %}" type="submit" class="btn btn-danger">Delete</a>
+                                        <a href="{% url 'todo-edit' id=todo.id %}" type="submit" class="btn btn-primary ms-1">Edit</a>
+                                        <a href="{% url 'todo-finish' id=todo.id status=todo.status %}" type="submit" class="btn btn-success ms-1">Finished</a>
                                     </td>
                                 </tr>
                             {% endfor %}

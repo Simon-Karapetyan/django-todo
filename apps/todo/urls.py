@@ -20,4 +20,8 @@ from . import views
 urlpatterns = [
     path('', views.index, name='todo-index'),
     path('store', views.store, name='todo-store'),
+    path('<int:id>/edit', views.edit, name='todo-edit'),
+    path('<int:id>/update', views.update, name='todo-update'),
+    path('<int:id>/finish/<str:status>', views.finish, name='todo-finish'),
+    path('<int:id>/delete', views.delete, name='todo-delete'),
 ]
